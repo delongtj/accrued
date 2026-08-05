@@ -1,0 +1,31 @@
+import SwiftUI
+
+struct AccrualPanel: View {
+    @ObservedObject var settings: AccruedSettings
+    let snapshot: AccrualSnapshot
+    let openSettings: () -> Void
+    let quit: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Accrued").font(.title3.weight(.semibold))
+            PeriodProgressView(title: "Today", period: snapshot.today)
+            PeriodProgressView(title: "This week", period: snapshot.week)
+            PeriodProgressView(title: "This month", period: snapshot.month)
+            Divider()
+            Text("\(CurrencyFormatting.string(snapshot.hourlyRate, fractionDigits: 2)) per scheduled hour")
+                .font(.system(.body, design: .monospaced))
+            if snapshot.isOutsideSchedule {
+                Label("Outside scheduled hours", systemImage: "clock")
+                    .foregroundStyle(.secondary)
+            }
+            HStack {
+                Button("Settings", action: openSettings)
+                Spacer()
+                Button("Quit", action: quit)
+            }
+        }
+        .padding(18)
+        .frame(width: 330)
+    }
+}

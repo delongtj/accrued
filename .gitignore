@@ -1,0 +1,25 @@
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode user-specific state
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+
+# Xcode build products and derived data
+DerivedData/
+build/
+Build/
+
+# Local distributable output
+dist/
+
+# Swift Package Manager artifacts (if packages are added later)
+.build/
+.swiftpm/
+
+# Editor and tooling metadata
+.idea/
+.vscode/
