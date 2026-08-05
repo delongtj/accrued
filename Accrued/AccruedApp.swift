@@ -18,13 +18,22 @@ struct AccruedApp: App {
         return AccrualCalculator(calendar: calendar, timeZone: calendar.timeZone, now: clock.now).snapshot(configuration: configuration)
     }
 
+    private var menuBarAmount: Decimal {
+        switch settings.menuBarPeriod {
+        case .today: return snapshot.today.accrued
+        case .week: return snapshot.week.accrued
+        case .month: return snapshot.month.accrued
+        case .year: return snapshot.year.accrued
+        }
+    }
+
     var body: some Scene {
         MenuBarExtra {
             AccrualPanel(settings: settings, snapshot: snapshot, openSettings: {
                 SettingsWindowController.shared.show(settings: settings)
             }, quit: { NSApplication.shared.terminate(nil) })
         } label: {
-            MenuBarLabel(amount: snapshot.today.accrued)
+            MenuBarLabel(amount: menuBarAmount, period: settings.menuBarPeriod)
         }
         .menuBarExtraStyle(.window)
 

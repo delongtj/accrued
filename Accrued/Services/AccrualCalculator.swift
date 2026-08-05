@@ -32,6 +32,7 @@ struct AccrualSnapshot {
     var today: AccrualPeriod
     var week: AccrualPeriod
     var month: AccrualPeriod
+    var year: AccrualPeriod
     var hourlyRate: Decimal
     var isOutsideSchedule: Bool
 }
@@ -51,17 +52,19 @@ struct AccrualCalculator {
     func snapshot(configuration: AccrualConfiguration) -> AccrualSnapshot {
         guard configuration.isValid else {
             let zero = AccrualPeriod(accrued: 0, full: 0)
-            return AccrualSnapshot(today: zero, week: zero, month: zero, hourlyRate: 0, isOutsideSchedule: true)
+            return AccrualSnapshot(today: zero, week: zero, month: zero, year: zero, hourlyRate: 0, isOutsideSchedule: true)
         }
         let day = calendar.startOfDay(for: now)
         let daily = configuration.hourlyRate * Decimal(configuration.endMinutes - configuration.startMinutes) / 60
         let today = period(for: day, through: now, configuration: configuration, daily: daily)
         let weekInterval = calendar.dateInterval(of: .weekOfYear, for: now)!
         let monthInterval = calendar.dateInterval(of: .month, for: now)!
+        let yearInterval = calendar.dateInterval(of: .year, for: now)!
         return AccrualSnapshot(
             today: today,
             week: aggregate(interval: weekInterval, through: now, configuration: configuration, daily: daily),
             month: aggregate(interval: monthInterval, through: now, configuration: configuration, daily: daily),
+            year: aggregate(interval: yearInterval, through: now, configuration: configuration, daily: daily),
             hourlyRate: configuration.hourlyRate,
             isOutsideSchedule: !isWithinSchedule(day: day, date: now, configuration: configuration)
         )

@@ -3,6 +3,7 @@
 Accrued is a small native macOS menu-bar utility that makes scheduled salaried compensation visible during the workday. It is schedule-based: it does not inspect activity, track time, connect to calendars, or model taxes and deductions.
 
 It supports macOS 13 or newer, annual or monthly compensation, one shared schedule for selected weekdays, and the current system locale/time zone.
+The menu-bar amount can be configured to show today, the current week, month, or year; the panel includes all four periods.
 
 ## Run in Xcode
 

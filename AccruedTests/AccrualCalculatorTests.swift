@@ -37,6 +37,7 @@ final class AccrualCalculatorTests: XCTestCase {
         XCTAssertEqual(snapshot.week.progress, 0.5, accuracy: 0.001) // Monday + Tuesday + half Wednesday of five days.
         XCTAssertEqual(calculator("2026-06-01T09:00:00-05:00").snapshot(configuration: config()).month.full, snapshot.month.full, accuracy: 0.01)
         XCTAssertGreaterThan(snapshot.month.full, snapshot.week.full)
+        XCTAssertGreaterThan(snapshot.year.full, snapshot.month.full)
     }
 
     func testLeapFebruaryAndMonthBoundary() {

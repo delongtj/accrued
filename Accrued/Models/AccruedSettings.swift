@@ -9,10 +9,16 @@ final class AccruedSettings: ObservableObject {
     @AppStorage("workdayStartMinutes") var workdayStartMinutes = 8 * 60
     @AppStorage("workdayEndMinutes") var workdayEndMinutes = 16 * 60
     @AppStorage("weeklyHours") var weeklyHours = 40.0
+    @AppStorage("menuBarPeriod") var menuBarPeriodRaw = MenuBarPeriod.today.rawValue
 
     var compensationMode: CompensationMode {
         get { CompensationMode(rawValue: compensationModeRaw) ?? .annual }
         set { compensationModeRaw = newValue.rawValue }
+    }
+
+    var menuBarPeriod: MenuBarPeriod {
+        get { MenuBarPeriod(rawValue: menuBarPeriodRaw) ?? .today }
+        set { menuBarPeriodRaw = newValue.rawValue }
     }
 
     func isEnabled(weekday: Int) -> Bool {
@@ -33,5 +39,6 @@ final class AccruedSettings: ObservableObject {
         workdayStartMinutes = 8 * 60
         workdayEndMinutes = 16 * 60
         weeklyHours = 40
+        menuBarPeriodRaw = MenuBarPeriod.today.rawValue
     }
 }

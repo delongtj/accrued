@@ -12,6 +12,7 @@ struct AccrualPanel: View {
             PeriodProgressView(title: "Today", period: snapshot.today)
             PeriodProgressView(title: "This week", period: snapshot.week)
             PeriodProgressView(title: "This month", period: snapshot.month)
+            PeriodProgressView(title: "This year", period: snapshot.year)
             Divider()
             Text("\(CurrencyFormatting.string(snapshot.hourlyRate, fractionDigits: 2)) per scheduled hour")
                 .font(.system(.body, design: .monospaced))
