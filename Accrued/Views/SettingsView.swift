@@ -35,13 +35,6 @@ struct SettingsView: View {
                 TextField(settings.compensationMode == .annual ? "Annual amount" : "Monthly amount", text: $settings.compensationAmount)
                 TextField("Weekly hours", value: $settings.weeklyHours, format: .number)
             }
-            Section("Menu bar") {
-                Picker("Show in menu bar", selection: $settings.menuBarPeriodRaw) {
-                    ForEach(MenuBarPeriod.allCases) { period in
-                        Text(period.title).tag(period.rawValue)
-                    }
-                }
-            }
             Section("Schedule") {
                 ForEach(weekdays, id: \.0) { day in
                     Toggle(day.1, isOn: Binding(get: { settings.isEnabled(weekday: day.0) }, set: { settings.setEnabled($0, weekday: day.0) }))

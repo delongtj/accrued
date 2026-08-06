@@ -23,4 +23,13 @@ enum MenuBarPeriod: String, CaseIterable, Identifiable {
         case .year: return "This year"
         }
     }
+
+    var shortTitle: String {
+        switch self {
+        case .today: return "Today"
+        case .week: return "Week"
+        case .month: return "Month"
+        case .year: return "Year"
+        }
+    }
 }
